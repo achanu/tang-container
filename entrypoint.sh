@@ -9,4 +9,5 @@ then
 else
 	echo "Reusing existing tang keys in /var/db/tang"
 fi
+echo "tang keys available"
 exec "$@"

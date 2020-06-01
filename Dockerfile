@@ -1,11 +1,23 @@
-FROM centos:7
+FROM registry.access.redhat.com/ubi8/ubi:latest
+LABEL maintainer="Alexandre Chanu <alexandre.chanu@gmail.com>"
 
-LABEL maintainer="Adrian Lucrèce Céleste <adrianlucrececeleste@airmail.cc>"
-
-RUN yum -y update && yum -y install tang xinetd && yum clean all && rm -rf /var/cache/yum
-EXPOSE 80
-
-COPY tangd.xinetd /etc/xinetd.d/tangd
 COPY entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["entrypoint.sh"]
-CMD ["/usr/sbin/xinetd","-dontfork"]
+
+RUN \
+  dnf update -y && \
+  dnf install -y \
+    tang \
+    socat \
+  && \
+  rm -rf /var/cache/dnf && \
+  rm -rf /var/log/*.log && \
+  chmod -c u+w /var/db/tang && \
+  chown tang /usr/local/bin/entrypoint.sh && \
+  chmod u+x /usr/local/bin/entrypoint.sh
+
+USER tang
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["socat", "tcp-l:7050,reuseaddr,fork", "exec:\"/usr/libexec/tangd /var/cache/tang\""]
+
+VOLUME /var/db/tang
+EXPOSE 7050/tcp

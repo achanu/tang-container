@@ -7,6 +7,8 @@ RUN \
     --releasever 8 --setopt install_weak_deps=false --nodocs \
     coreutils-single \
     glibc-minimal-langpack \
+    setup \
+    openssl \
     tang \
     socat \
   && \

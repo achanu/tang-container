@@ -17,6 +17,8 @@ RUN \
 COPY entrypoint.sh /rootfs/usr/local/bin/
 
 RUN \
+  mkdir -v /rootfs/var/cache/tang && \
+  chmod -c u+w /rootfs/var/{db,cache}/tang && \
   chmod u+x /rootfs/usr/local/bin/entrypoint.sh
 
 
@@ -25,6 +27,10 @@ LABEL maintainer="Alexandre Chanu <alexandre.chanu@gmail.com>"
 
 COPY --from=micro-build /rootfs/ /
 
+RUN \
+  chown tang /usr/local/bin/entrypoint.sh
+
+USER tang
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["socat", "tcp-l:7050,reuseaddr,fork", "exec:\"/usr/libexec/tangd /var/db/tang\""]
 

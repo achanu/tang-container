@@ -17,7 +17,7 @@ RUN \
 
 USER tang
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["socat", "tcp-l:7050,reuseaddr,fork", "exec:\"/usr/libexec/tangd /var/cache/tang\""]
+CMD ["socat", "tcp-l:7050,reuseaddr,fork", "exec:\"/usr/libexec/tangd /var/db/tang\""]
 
 VOLUME /var/db/tang
 EXPOSE 7050/tcp

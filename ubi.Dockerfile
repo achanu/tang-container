@@ -6,6 +6,7 @@ COPY entrypoint.sh /usr/local/bin/
 RUN \
   dnf update -y && \
   dnf install -y \
+    --setopt install_weak_deps=false --nodocs \
     tang \
     socat \
   && \

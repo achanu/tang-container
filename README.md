@@ -20,6 +20,7 @@
 - [Nathaniel McCallum](https://github.com/npmccallum)
 - [Michel Belleau](https://github.com/malaiwah)
 - [bstin](https://github.com/bstin)
+- [Scott McCarty](https://github.com/fatherlinux) for micro version
 
 ## [License](LICENSE)
 

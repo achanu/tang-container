@@ -9,7 +9,7 @@
 
 ## Usage
 * mkdir $(pwd)/tang_key
-* podman run -d -p 7050:7050 -v $(pwd)/tang_key:/var/db/tang tang
+* podman run -d -p 7050:7050 -v $(pwd)/tang_key:/var/db/tang quay.io/achanu/tang:latest
 * echo "Hello World..." | clevis encrypt tang '{ "url": "http://localhost:7050"}' > secret.jwe
 * clevis decrypt < secret.jwe
 

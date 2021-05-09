@@ -3,8 +3,8 @@ FROM quay.io/centos/centos:stream AS micro-build
 RUN \
   mkdir -p /rootfs && \
   dnf install -y \
-    --disableplugin subscription-manager --installroot /rootfs \
-    --releasever 8 --setopt install_weak_deps=false --nodocs \
+    --installroot /rootfs --releasever 8 \
+    --setopt install_weak_deps=false --nodocs \
     coreutils-single \
     glibc-minimal-langpack \
     setup \

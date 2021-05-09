@@ -3,8 +3,8 @@ FROM registry.access.redhat.com/ubi8/ubi:latest AS micro-build
 RUN \
   mkdir -p /rootfs && \
   dnf install -y \
-    --installroot /rootfs \
-    --releasever 8 --setopt install_weak_deps=false --nodocs \
+    --installroot /rootfs --releasever 8 \
+    --setopt install_weak_deps=false --nodocs \
     coreutils-single \
     glibc-minimal-langpack \
     setup \

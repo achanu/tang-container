@@ -12,7 +12,6 @@ RUN \
     tang \
     socat \
   && \
-  cp -v /etc/yum.repos.d/*.repo /rootfs/etc/yum.repos.d/ && \
   dnf clean all && \
   rm -rf /rootfs/var/cache/*
 
@@ -33,8 +32,11 @@ RUN \
   chown tang /usr/local/bin/entrypoint.sh
 
 USER tang
+
+ENV PORT 7050
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["socat", "tcp-l:7050,reuseaddr,fork", "exec:\"/usr/libexec/tangd /var/db/tang\""]
+CMD /bin/socat tcp-l:${PORT},reuseaddr,fork exec:"/usr/libexec/tangd /var/db/tang"
 
 VOLUME /var/db/tang
 EXPOSE 7050/tcp
